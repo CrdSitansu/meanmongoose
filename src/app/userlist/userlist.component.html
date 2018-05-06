@@ -1,0 +1,29 @@
+<div style="text-align:center">
+  <h1>List Of Employee</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+       
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        
+        <td>{{user.name}}</td>
+        <td>{{user.address}}</td>
+        <td><a routerLink="edituser/{{user._id}}"  class="btn btn-primary">Edit</a>&nbsp;&nbsp;<a routerLink="" class="btn btn-warning">Delete</a></td>
+      </tr>
+      
+      
+    </tbody>
+  </table>
+</div>
+<a routerLink ="add-user" class="btn btn-primary">Add Employee</a>
+<router-outlet></router-outlet>
+</div>
