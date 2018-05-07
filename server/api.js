@@ -44,13 +44,13 @@ router.get('/users', (req,res)=>{
 });
 
 router.get('/edituser/:id',(req,res)=>{
-        let id = userdata;
-        console.log(id);
+        let id = req.params.id;
+        //console.log(id);
     User.findById(id,(err,selected)=>{
         if(err) res.send('err');
         response.data = selected;
         res.json(response);
-        console.log(response);
+        //console.log(response);
         
     })
 
