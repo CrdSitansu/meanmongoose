@@ -56,4 +56,31 @@ router.get('/edituser/:id',(req,res)=>{
 
 });
 
+router.put('/updateuser/:id',(req,res)=>{
+
+    let uid = req.params.id;
+    var user_name = req.body.name;
+    var user_addr = req.body.address;
+
+    var userobj = {name:user_name,address:user_addr};
+    User.findByIdAndUpdate(uid,userobj,(err,updated)=>{
+        if(err) res.send('err');
+        //response.data = updated;
+        res.redirect('/users');
+    })
+
+});
+
+router.delete('/deleted/:id',(req,res)=>{
+    let removeid = req.params.id ;
+    //console.log(removeid);
+    User.findByIdAndRemove(removeid,(err,removed)=>{
+        if(err) res.send('err');
+        response.data = removed;
+        res.json(response);
+        
+    });
+    //res.redirect('/users');
+});
+
 module.exports = router;

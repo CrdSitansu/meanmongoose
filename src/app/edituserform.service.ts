@@ -14,6 +14,6 @@ export class EdituserformService {
        return this._http.get('/edituser/'+id).map(result => this.result = result.json().data);
      }
      updateuser(data){
-      return this._http.post('/updateuser/'+id,{name: data.name, address: data.address});
+      return this._http.put('/updateuser/'+data.id,{name: data.name, address: data.address});
      }
 }
