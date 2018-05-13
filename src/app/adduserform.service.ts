@@ -9,11 +9,13 @@ export class AdduserformService {
   result;
   name;
   address;
+  filepath;
+
 
   constructor(private _http: Http) { }
 
      adduser(data){
-       return this._http.post('/adduser',{name: data.name, address: data.address})
+       return this._http.post('/adduser',{name: data.name, address: data.address,filepath:data.uploader})
      }
 
 }

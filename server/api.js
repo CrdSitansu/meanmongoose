@@ -1,6 +1,19 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require('mongoose');
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+      var filename = file.originalname;
+      var filenameparts = filename.split('.');
+      cb(null, file.fieldname + '-' + Date.now() + '.' +filenameparts[1])
+    }
+  });
+var upload = multer({ storage: storage }).single('files');
 
 
 mongoose.connect("mongodb://localhost/meanmongoose");
@@ -21,13 +34,17 @@ var sendError  = (err,res)=> {
     res.status(501).json(response);
 }
 
-router.post('/adduser', (req,res)=>{
+router.post('/adduser', upload,(req,res)=>{
+    var filepath = req.file.destination.substr(7) + '/' + req.file.filename;
     var user_name = req.body.name;
     var user_addr = req.body.address;
-
-    var userobj = {name:user_name,address:user_addr};
+    //console.log(filepath);
+    var userobj = {name:user_name,address:user_addr,filepath:filepath};
     User.create(userobj, (err,adduserfrm)=>{
         if(err) res.send('err');
+        response.data = adduserfrm;
+        res.json(response);
+        console.log(response)
         res.redirect('/users');
     })
 });

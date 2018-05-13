@@ -4,6 +4,20 @@ var bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 var path = require("path");
 var http = require("http");
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/uploads')
+    },
+    filename: function (req, file, cb) {
+      var filename = file.originalname;
+      var filenameparts = filename.split('.');
+      cb(null, file.fieldname + '-' + Date.now() + '.' +filenameparts[1])
+    }
+  });
+var upload = multer({ storage: storage }).single('files');
+
 
 
 var api = require('./server/api');

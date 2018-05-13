@@ -4,9 +4,10 @@ import { RouterModule, Routes} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
-
+import { FileUploadModule } from 'ng2-file-upload';
 
 import {HttpModule} from "@angular/http";
+import { HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -45,10 +46,11 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpModule
+    HttpModule,
+    FileUploadModule,
+    HttpClientModule
   ],
   providers: [ListusersService,AdduserformService,EdituserformService],
   bootstrap: [AppComponent]

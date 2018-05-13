@@ -8,7 +8,8 @@ var schema = new mongoose.Schema(
         },
         address: {
           type: 'string'
-        }
+        },
+        filepath : String
     });
 var User = mongoose.model('User', schema);
 module.exports = User;
