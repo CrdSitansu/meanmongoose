@@ -14,7 +14,8 @@ var storage = multer.diskStorage({
     }
   });
 var upload = multer({ storage: storage }).single('files');
-
+console.log(storage);
+console.log(upload);
 
 mongoose.connect("mongodb://localhost/meanmongoose");
 //console.log(mongoose.connection.readyState);
@@ -34,12 +35,13 @@ var sendError  = (err,res)=> {
     res.status(501).json(response);
 }
 
-router.post('/adduser', upload,(req,res)=>{
-    var filepath = req.file.destination.substr(7) + '/' + req.file.filename;
+router.post('/adduser', upload, (req,res)=>{
+     console.log(req.file)
+   // var filepath = req.file.destination.substr(7) + '/' + req.file.filename;
     var user_name = req.body.name;
     var user_addr = req.body.address;
     //console.log(filepath);
-    var userobj = {name:user_name,address:user_addr,filepath:filepath};
+    var userobj = {name:user_name,address:user_addr};
     User.create(userobj, (err,adduserfrm)=>{
         if(err) res.send('err');
         response.data = adduserfrm;

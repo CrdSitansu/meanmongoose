@@ -5,6 +5,7 @@ import { Router} from '@angular/router';
 import {FileSelectDirective, FileUploader } from 'ng2-file-upload';
 import { AdduserformService} from '../adduserform.service';
 
+
 //const uri = 'http://localhost:3000/adduser' ;
 
 @Component({
@@ -45,12 +46,10 @@ fileChange(event){
 console.log(event);
 }
   onClickSubmit(data) {
-     //alert(data.uploader);
-    // alert(data.address);
-    //console.log(data.uploader);
+     
+    data.myFile = this.myFile;
+    console.log('componenet=' + data.myFile);
     
-    data.append('image',this.myFile, this.myFile.name);
-    alert(data);
      this._adduserformService.adduser(data).subscribe(response => this.adduser = response);
     this.router.navigate([''])
     }

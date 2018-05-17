@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http,Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
@@ -15,7 +15,12 @@ export class AdduserformService {
   constructor(private _http: Http) { }
 
      adduser(data){
-       return this._http.post('/adduser',{name: data.name, address: data.address,filepath:data.uploader})
+      let headers = new Headers();
+       console.log('Service=' + data.myFile);
+
+       return this._http.post('/adduser',{name: data.name, address: data.address,filepath:data.myFile},{
+        headers: headers
+       }).map(result => this.result = result.json().data);
      }
 
 }
