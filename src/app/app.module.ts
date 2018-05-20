@@ -16,8 +16,13 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { ListusersService } from './listusers.service';
 import { AdduserformService} from './adduserform.service';
 import { EdituserformService } from './edituserform.service';
+import { RegisterformService } from './registerform.service';
+
+import { LoginformService } from './loginform.service';
 import { AdduserComponent } from './adduser/adduser.component';
 import { EdituserComponent } from './edituser/edituser.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
    {
@@ -28,6 +33,14 @@ const appRoutes: Routes = [
     path: 'add-user',
     component: AdduserComponent
  },
+ {
+  path: 'register-user',
+  component: RegistrationComponent
+},
+{
+  path: 'login-user',
+  component: LoginComponent
+},
  {
   path: 'edituser/:id',
   component: EdituserComponent
@@ -41,7 +54,9 @@ const appRoutes: Routes = [
     FooterComponent,
     UserlistComponent,
     AdduserComponent,
-    EdituserComponent
+    EdituserComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +67,7 @@ const appRoutes: Routes = [
     FileUploadModule,
     HttpClientModule
   ],
-  providers: [ListusersService,AdduserformService,EdituserformService],
+  providers: [ListusersService,AdduserformService,EdituserformService,RegisterformService,LoginformService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
