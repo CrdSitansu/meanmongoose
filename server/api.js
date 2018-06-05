@@ -133,28 +133,32 @@ router.post('/registration', (req,res)=>{
         console.log('Api=' + newAdmin);
         
     Adminuser.createUser(newAdmin,(err,admin)=>{
-        if(err) res.send('err');
-        // response.data = admin;
-        // res.json(response);
-         console.log(admin);
-        // passport.authenticate("local")(req,res, function(){
-           
-        // })
-    })
-    res.redirect("/users");
+        if(err) throw err; 
+        // console.log(err);
+        //  console.log(admin);
+       
+    });
+    // res.redirect("/logedin");
 })
 
 passport.use(new LocalStrategy(
     function(email, password, done) {
+        console.log('1');
+        // console.log('getpassword=' + password);
         Adminuser.getemailByEmail(email, function(err,email){
           if(err) throw err;
           if(!email){
               return done(null, false);
           }
+          console.log('2');
+          console.log('getemail=' + email);
           Adminuser.comparePassword(password,email.password, function(err, isMatch){
               if(err) throw err;
+              console.log('3');
           if(isMatch){
               return done(null, email);
+              console.log('4');
+             console.log('getpass=' + email);
           }else {
               return done(null, false);
           }
@@ -164,34 +168,40 @@ passport.use(new LocalStrategy(
   }));
 
 passport.serializeUser(function(email,done){
-	done(null, email.id);
+    done(null, email.id);
+    console.log('5');
 });
 
 passport.deserializeUser(function(id,done){
 	Adminuser.getemailById(id, function(err,email){
-		done(err,email);
+        done(err,email);
+        console.log('6');
 	});
 });
 
-router.post('/logedin', 
-	passport.authenticate('local',{successRedirect:'/vdhcvdjsc'})
+router.post('/logedin', passport.authenticate('local',{successRedirect:'/vdhcvdjsc'})
 	,function(req, res){
-		//var username=new User({username:req.body.username});
+        console.log('7');
+        var username=new User({email:req.body.email});
+    console.log('username=' + username);
+    console.log('8');
 		res.redirect('/vdhcvdjsc');
 });
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
+        console.log('9');
     }
     res.redirect("/logedin");
 }
 
 
-router.use(function(req,res,next){
-res.locals.currentUser = req.email;
-next();
-});
+// router.use(function(req,res,next){
+// res.locals.currentUser = req.email;
+// // console.log(res.locals.currentUser)
+// next();
+// });
 
 
 

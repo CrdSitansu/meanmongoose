@@ -28,11 +28,14 @@ module.exports.createUser = function(newAdmin, callback){
 
 module.exports.getemailByEmail = function(email, callback){
 	var query = { email:email};
+	console.log('10');
+	console.log('model'+query);
 	Adminuser.findOne(query,callback);
 }
 
 module.exports.getemailById = function(id, callback){
-	
+	console.log('modelId'+id);
+	console.log('11');
 	Adminuser.findById(id,callback);
 }
 module.exports.comparePassword = function(candidatePassword, hash ,callback){
@@ -40,6 +43,7 @@ module.exports.comparePassword = function(candidatePassword, hash ,callback){
 		bcrypt.compare(candidatePassword, hash, function(err, isMatch){
 			if(err) throw err;
 			callback(null, isMatch);
+			console.log('12');
 		});
 	
 }
